@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/58c3ebdc0c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="language-switcher">
+        <button onclick="translatePage('zh')">中文</button>
+        <div class="separator"></div>
+        <button onclick="translatePage('en')">English</button>
+        <div class="separator"></div>
+        <button onclick="translatePage('ja')">日本語</button>
+    </div>
+
+    <div id="title">
+        <h1 data-translate>排行榜</h1>
+    </div>
+
+    <div class="tab-container">
+        <button class="tab-button" onclick="window.location.href='products.html'" data-translate>产品展示</button>
+    </div>
+    
+
+    <div id="ranking" class="product-grid product-container"></div>
+
+    <script>
+
+
+        fetch('http://localhost:3000/api/ranking')
+            .then(response => response.json())
+            .then(data => {
+                const rankingContainer = document.getElementById('ranking');
+                data.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.className = 'product';
+                    productDiv.innerHTML = `
+                    <h2>${product.name}</h2>
+                        <p>${product.description}</p>
+                        <p data-translate>价格: ￥${product.price}</p>
+                        <p data-translate>点赞数: <span id="like-count-${product.id}">${product.likes}</span></p>
+                        <img src="${product.image_url}" alt="${product.name}">
+                    `;
+                    rankingContainer.appendChild(productDiv);
+                });
+            });
+    </script>
+
+    <script>
+        function translatePage(lang) {
+            document.querySelectorAll("[data-translate]").forEach(element => {
+                let originalText = element.getAttribute("data-original") || element.innerText;
+                element.setAttribute("data-original", originalText); // 存原始文本
+
+                fetch(`http://localhost:3000/api/translate?text=${encodeURIComponent(originalText)}&lang=${lang}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        element.innerText = data.translatedText;
+                    })
+                    .catch(error => console.error("翻译失败:", error));
+            });
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            translatePage('zh'); // 页面加载完毕后执行翻译
+        });
+    </script>
+</body>
+</html>
+
