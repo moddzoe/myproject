@@ -6,7 +6,7 @@ const { Translate } = require('@google-cloud/translate').v2;
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // 启用 CORS，允许前端访问
 app.use(cors());
@@ -29,7 +29,7 @@ app.get('/api/translate', async (req, res) => {
 });
 
 // 启动服务器
-app.listen(4000, () => console.log('服务器运行在 http://localhost:4000'));
+//app.listen(4000, () => console.log('服务器运行在 http://localhost:4000'));
 
 // 创建 MySQL 数据库连接
 const db = mysql.createConnection({
