@@ -33,11 +33,11 @@ app.listen(4000, () => console.log('服务器运行在 http://localhost:4000'));
 
 // 创建 MySQL 数据库连接
 const db = mysql.createConnection({
-  host: 'localhost',   // 数据库服务器地址（本地就是 localhost）
-  user: 'root',        // 你的 MySQL 用户名
-  password: '',        // 你的 MySQL 密码（如果改过这里也要改）
-  database: 'spider_db', // 你的数据库名称
-  socketPath: '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock'
+  host: process.env.DB_HOST,      // mysql.railway.app
+  port: process.env.DB_PORT,      // 12345
+  user: process.env.DB_USER,      // root
+  password: process.env.DB_PASS,  // 从 Railway 获取
+  database: process.env.DB_NAME   // railway
 });
 
 // 连接到数据库
