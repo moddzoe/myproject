@@ -32,7 +32,7 @@
     <script>
 
 
-        fetch('http://localhost:3000/api/ranking')
+        fetch('https://myproject-29a6.onrender.com/api/ranking')
             .then(response => response.json())
             .then(data => {
                 const rankingContainer = document.getElementById('ranking');
@@ -57,7 +57,7 @@
                 let originalText = element.getAttribute("data-original") || element.innerText;
                 element.setAttribute("data-original", originalText); // 存原始文本
 
-                fetch(`http://localhost:3000/api/translate?text=${encodeURIComponent(originalText)}&lang=${lang}`)
+                fetch(`https://myproject-29a6.onrender.com/api/translate?text=${encodeURIComponent(originalText)}&lang=${lang}`)
                     .then(response => response.json())
                     .then(data => {
                         element.innerText = data.translatedText;
