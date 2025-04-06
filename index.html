@@ -31,7 +31,7 @@
 
     <script>
 
-        fetch('http://localhost:3000/api/products')
+        fetch('https://myproject-29a6.onrender.com/api/products')
             .then(response => response.json())
             .then(data => {
                 const productContainer = document.getElementById('products');
@@ -54,7 +54,7 @@
             });
 
         function likeProduct(productId) {
-            fetch(`http://localhost:3000/api/like/${productId}`, { method: 'POST' })
+            fetch(`https://myproject-29a6.onrender.com/api/like/${productId}`, { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
