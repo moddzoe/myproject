@@ -47,22 +47,21 @@ def insert_product(name, price, release_date, image_url):
         '''
         cursor.execute(sql, (name, price, release_date, image_url))
         conn.commit()
-        print("✅ 数据插入成功")
+        print(" 数据插入成功")
     except pymysql.MySQLError as e:
-        print(f"❌ 数据插入失败: {e}")
+        print(f" 数据插入失败: {e}")
     finally:
         cursor.close()
         conn.close()
 
 
 def delete_old_products(cursor):
-    """删除 30 天前的产品"""
     try:
         sql = "DELETE FROM products WHERE created_at < NOW() - INTERVAL 30 DAY"
         cursor.execute(sql)
-        print(f"🗑️ 已删除 30 天前的数据")
+        print(f"已删除 30 天前的数据")
     except pymysql.MySQLError as e:
-        print(f"⚠️ 删除旧数据失败: {e}")
+        print(f"删除旧数据失败: {e}")
 
 
 # 价格格式化函数
