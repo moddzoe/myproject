@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json()); // 启用 JSON 解析
 
 // 初始化 Google 翻译
-const translate = new Translate({ key: 'AIzaSyCmA-hK_iLybiwoKghnh7SvB2-Y63iftgE' });  // 👈 这里填你的 API Key
+const translate = new Translate({ key: 'AIzaSyCmA-hK_iLybiwoKghnh7SvB2-Y63iftgE' });  
 
 // 翻译接口
 app.get('/api/translate', async (req, res) => {
